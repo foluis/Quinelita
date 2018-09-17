@@ -9,5 +9,8 @@ namespace Model
 		public int Id { get; set; }
 		public int EquipoLocalId { get; set; }
 		public int EquipoVisitanteId { get; set; }
+		public int? ResultadoEquipoLocal { get; set; }
+		public int? ResultadoEquipoVisitante { get; set; }
+		public bool MostrarResultados { get; set; }
 	}
 }

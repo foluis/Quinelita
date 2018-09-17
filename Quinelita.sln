@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{0518DAB4-9FAB-4E79-8051-7CB6E82FEC6F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quinelita.Api", "Quinelita.Api\Quinelita.Api.csproj", "{B61040D0-76FA-4787-ABCA-2479E7CA0D01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quinelita.Data", "Quinelita.Data\Quinelita.Data.csproj", "{27886675-A1D7-4E4C-A701-0EB8436DBA2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0518DAB4-9FAB-4E79-8051-7CB6E82FEC6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0518DAB4-9FAB-4E79-8051-7CB6E82FEC6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0518DAB4-9FAB-4E79-8051-7CB6E82FEC6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0518DAB4-9FAB-4E79-8051-7CB6E82FEC6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B61040D0-76FA-4787-ABCA-2479E7CA0D01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B61040D0-76FA-4787-ABCA-2479E7CA0D01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B61040D0-76FA-4787-ABCA-2479E7CA0D01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B61040D0-76FA-4787-ABCA-2479E7CA0D01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27886675-A1D7-4E4C-A701-0EB8436DBA2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27886675-A1D7-4E4C-A701-0EB8436DBA2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27886675-A1D7-4E4C-A701-0EB8436DBA2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27886675-A1D7-4E4C-A701-0EB8436DBA2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
