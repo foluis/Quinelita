@@ -10,26 +10,20 @@ namespace Quinelita.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EquiposController : ControllerBase
+    public class LigasController : ControllerBase
     {
 		private readonly QuinelitaContext _context;
 
-		public EquiposController(QuinelitaContext context)
+		public LigasController(QuinelitaContext context)
 		{
 			_context = context;
 		}
-		
+
+		// GET api/customers
 		[HttpGet]
 		public IActionResult Get()
 		{
-			return Ok(_context.Equipo);
-		}
-		
-		[Route("Liga/{ligaId}")]
-		[HttpGet]
-		public IActionResult EquiposByLiga(int ligaId)
-		{
-			return Ok(_context.Equipo.Where(x => x.LigaId == ligaId));
+			return Ok(_context.Liga);
 		}
 	}
 }
