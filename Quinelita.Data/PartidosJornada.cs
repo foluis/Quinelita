@@ -8,7 +8,9 @@ namespace Quinelita.Data
     public partial class PartidosJornada
     {
         public int Id { get; set; }
-        public int PartidoId { get; set; }
+
+        //public int PartidoId { get; set; }
+
         public int JornadaId { get; set; }
 
         [Column(TypeName = "datetime")]
