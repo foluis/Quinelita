@@ -1,2 +1,2 @@
---SELECT * FROM Liga
+DELETE Equipo
 DELETE Liga
