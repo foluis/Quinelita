@@ -9,7 +9,7 @@ namespace Quinelita.Data
     {
         public Jornada()
         {
-            PartidosJornada = new HashSet<PartidosJornada>();
+            Partidos = new HashSet<Partido>();
         }
 
         public int Id { get; set; }
@@ -18,6 +18,6 @@ namespace Quinelita.Data
         public DateTime Fecha { get; set; }
 
         [InverseProperty("Jornada")]
-        public ICollection<PartidosJornada> PartidosJornada { get; set; }
+        public ICollection<Partido> Partidos { get; set; }
     }
 }

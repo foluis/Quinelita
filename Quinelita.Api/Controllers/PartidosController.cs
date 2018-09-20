@@ -10,26 +10,26 @@ namespace Quinelita.Api.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class PartidosJornadasController : ControllerBase
+	public class PartidosController : ControllerBase
 	{
 		private readonly QuinelitaContext _context;
 
-		public PartidosJornadasController(QuinelitaContext context)
+		public PartidosController(QuinelitaContext context)
 		{
 			_context = context;
 		}
 
 		[HttpGet]
-		public IEnumerable<PartidosJornada> GetPartidosJornada()
+		public IEnumerable<Partido> GetPartidosJornada()
 		{
-			return _context.PartidosJornada;
+			return _context.Partidos;
 		}
 
 		[Route("{jornadaId}")]
 		[HttpGet]
 		public IEnumerable<PartidosJornadaDTO> GetPartidosJornadaXJornada(int jornadaId)
 		{
-			return _context.PartidosJornada
+			return _context.Partidos
 				.Include(l => l.EquipoLocal)
 				.Include(v => v.EquipoVisitante)
 				.Where(x => x.JornadaId == jornadaId)
@@ -53,14 +53,14 @@ namespace Quinelita.Api.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> PostPartidosJornada([FromBody] PartidosJornada partidosJornada)
+		public async Task<IActionResult> PostPartidosJornada([FromBody] Partido partidosJornada)
 		{
 			if (!ModelState.IsValid)
 			{
 				return BadRequest(ModelState);
 			}
 
-			_context.PartidosJornada.Add(partidosJornada);
+			_context.Partidos.Add(partidosJornada);
 			await _context.SaveChangesAsync();
 
 			return CreatedAtAction("GetPartidosJornada", new { id = partidosJornada.Id }, partidosJornada);

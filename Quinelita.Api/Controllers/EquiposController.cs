@@ -22,14 +22,14 @@ namespace Quinelita.Api.Controllers
 		[HttpGet]
 		public IActionResult Get()
 		{
-			return Ok(_context.Equipo);
+			return Ok(_context.Equipos);
 		}
 		
 		[Route("Liga/{ligaId}")]
 		[HttpGet]
 		public IActionResult EquiposByLiga(int ligaId)
 		{
-			return Ok(_context.Equipo.Where(x => x.LigaId == ligaId));
+			return Ok(_context.Equipos.Where(x => x.LigaId == ligaId));
 		}
 	}
 }

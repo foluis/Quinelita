@@ -21,12 +21,12 @@ namespace Quinelita.Api.Controllers
 		[HttpGet]
 		public IEnumerable<Jornada> Get()
 		{
-			var result = _context.Jornada.Select(c =>
+			var result = _context.Jornadas.Select(c =>
 				new Jornada
 				{
 					Id = c.Id,
 					Fecha = c.Fecha,
-					PartidosJornada = c.PartidosJornada
+					Partidos = c.Partidos
 				});
 
 			return result;
@@ -36,12 +36,12 @@ namespace Quinelita.Api.Controllers
 		[HttpGet]
 		public IEnumerable<Jornada> Get(int jornadaId)
 		{
-			var result = _context.Jornada.Select(c =>
+			var result = _context.Jornadas.Select(c =>
 				new Jornada
 				{
 					Id = c.Id,
 					Fecha = c.Fecha,
-					PartidosJornada = c.PartidosJornada
+					Partidos = c.Partidos
 				}).Where(x => x.Id == jornadaId);
 
 			return result;
@@ -55,7 +55,7 @@ namespace Quinelita.Api.Controllers
 				Fecha = DateTime.Parse(fecha)
 			};
 
-			_context.Jornada.Add(jornada);
+			_context.Jornadas.Add(jornada);
 			await _context.SaveChangesAsync();
 						
 			return CreatedAtAction("Get", new { id = jornada.Id }, jornada);

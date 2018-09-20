@@ -23,7 +23,7 @@ namespace Quinelita.Api.Controllers
 		[HttpGet]
 		public IActionResult Get()
 		{
-			return Ok(_context.Liga);
+			return Ok(_context.Ligas);
 		}
 	}
 }

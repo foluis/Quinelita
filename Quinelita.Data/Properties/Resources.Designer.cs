@@ -59,40 +59,5 @@ namespace Quinelita.Data.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to DELETE Equipo
-        ///DELETE Liga.
-        /// </summary>
-        internal static string SeedData_Down {
-            get {
-                return ResourceManager.GetString("SeedData_Down", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to --SELECT * FROM Liga
-        ///
-        ///INSERT INTO Liga (Id,Nombre)
-        ///VALUES (1,&apos;Mexicana&apos;)
-        ///INSERT INTO Liga (Id,Nombre)
-        ///VALUES (2,&apos;Colombiana&apos;)
-        ///
-        ///SET IDENTITY_INSERT Equipo ON; 
-        ///INSERT INTO Equipo (Id,Nombre,LigaId)
-        ///VALUES (1,&apos;Equipo1&apos;,1)
-        ///INSERT INTO Equipo (Id,Nombre,LigaId)
-        ///VALUES (2,&apos;Equipo2&apos;,1)
-        ///INSERT INTO Equipo (Id,Nombre,LigaId)
-        ///VALUES (3,&apos;Equipo3&apos;,1)
-        ///INSERT INTO Equipo (Id,Nombre,LigaId)
-        ///VALUES (4,&apos;Equipo4&apos;,1)
-        ///SET IDENTITY_INSERT Equipo OFF; .
-        /// </summary>
-        internal static string SeedData_Up {
-            get {
-                return ResourceManager.GetString("SeedData_Up", resourceCulture);
-            }
-        }
     }
 }

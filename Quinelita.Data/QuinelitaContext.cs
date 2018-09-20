@@ -15,10 +15,14 @@ namespace Quinelita.Data
         {
         }
 
-        public virtual DbSet<Equipo> Equipo { get; set; }
-        public virtual DbSet<Jornada> Jornada { get; set; }
-        public virtual DbSet<Liga> Liga { get; set; }
-        public virtual DbSet<PartidosJornada> PartidosJornada { get; set; }
+        public virtual DbSet<Equipo> Equipos { get; set; }
+        public virtual DbSet<Jornada> Jornadas { get; set; }
+        public virtual DbSet<Liga> Ligas { get; set; }
+        public virtual DbSet<Partido> Partidos { get; set; }
+        public virtual DbSet<QuinelaJornada> QuinelasJornada { get; set; }
+        public virtual DbSet<ResultadoJornada> ResultadosJornada { get; set; }
+        public virtual DbSet<ResultadoQuinela> ResultadosQuinela { get; set; }
+        public virtual DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -33,13 +37,16 @@ namespace Quinelita.Data
         {
             modelBuilder.Entity<Equipo>(entity =>
             {
-                entity.Property(e => e.Nombre).IsUnicode(false); //varchar
+                entity.HasIndex(e => e.LigaId)
+                    .HasName("IX_Equipo_LigaId");
+
+                entity.Property(e => e.Nombre).IsUnicode(false);
 
                 entity.HasOne(d => d.Liga)
-                    .WithMany(p => p.Equipo)
+                    .WithMany(p => p.Equipos)
                     .HasForeignKey(d => d.LigaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Equipo_Liga");
+                    .HasConstraintName("FK_Equipos_Ligas");
             });
 
             modelBuilder.Entity<Liga>(entity =>
@@ -49,25 +56,92 @@ namespace Quinelita.Data
                 entity.Property(e => e.Nombre).IsUnicode(false);
             });
 
-            modelBuilder.Entity<PartidosJornada>(entity =>
+            modelBuilder.Entity<Partido>(entity =>
             {
+                entity.HasIndex(e => e.EquipoLocalId)
+                    .HasName("IX_PartidosJornada_EquipoLocalId");
+
+                entity.HasIndex(e => e.EquipoVisitanteId)
+                    .HasName("IX_PartidosJornada_EquipoVisitanteId");
+
+                entity.HasIndex(e => e.JornadaId)
+                    .HasName("IX_PartidosJornada_JornadaId");
+
                 entity.HasOne(d => d.EquipoLocal)
-                    .WithMany(p => p.PartidosJornadaEquipoLocal)
+                    .WithMany(p => p.PartidosEquipoLocal)
                     .HasForeignKey(d => d.EquipoLocalId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PartidosJornada_Equipo");
+                    .HasConstraintName("FK_Partidos_Equipos");
 
                 entity.HasOne(d => d.EquipoVisitante)
-                    .WithMany(p => p.PartidosJornadaEquipoVisitante)
+                    .WithMany(p => p.PartidosEquipoVisitante)
                     .HasForeignKey(d => d.EquipoVisitanteId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PartidosJornada_Equipo1");
+                    .HasConstraintName("FK_Partidos_Equipos1");
 
                 entity.HasOne(d => d.Jornada)
-                    .WithMany(p => p.PartidosJornada)
+                    .WithMany(p => p.Partidos)
                     .HasForeignKey(d => d.JornadaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PartidosJornada_Jornada");
+                    .HasConstraintName("FK_Partidos_Jornadas");
+            });
+
+            modelBuilder.Entity<QuinelaJornada>(entity =>
+            {
+                entity.Property(e => e.MarcadorLocal).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.MarcadorVisitante).HasDefaultValueSql("((0))");
+
+                entity.HasOne(d => d.Ganador)
+                    .WithMany(p => p.QuinelasJornada)
+                    .HasForeignKey(d => d.GanadorId)
+                    .HasConstraintName("FK_QuinelasJornada_Equipos");
+
+                entity.HasOne(d => d.Partido)
+                    .WithMany(p => p.QuinelasJornada)
+                    .HasForeignKey(d => d.PartidoId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_QuinelasJornada_Partidos");
+
+                entity.HasOne(d => d.Usuario)
+                    .WithMany(p => p.QuinelasJornada)
+                    .HasForeignKey(d => d.UsuarioId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_QuinelasJornada_Usuarios");
+            });
+
+            modelBuilder.Entity<ResultadoJornada>(entity =>
+            {
+                entity.HasOne(d => d.Ganador)
+                    .WithMany(p => p.ResultadosJornada)
+                    .HasForeignKey(d => d.GanadorId)
+                    .HasConstraintName("FK_ResultadosJornada_Equipos");
+
+                entity.HasOne(d => d.Partido)
+                    .WithMany(p => p.ResultadosJornada)
+                    .HasForeignKey(d => d.PartidoId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ResultadosJornada_Partidos");
+            });
+
+            modelBuilder.Entity<ResultadoQuinela>(entity =>
+            {
+                entity.HasOne(d => d.Partido)
+                    .WithMany(p => p.ResultadosQuinela)
+                    .HasForeignKey(d => d.PartidoId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ResultadosQuinela_Partidos");
+
+                entity.HasOne(d => d.Usuario)
+                    .WithMany(p => p.ResultadosQuinela)
+                    .HasForeignKey(d => d.UsuarioId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ResultadosQuinela_Usuarios");
+            });
+
+            modelBuilder.Entity<Usuario>(entity =>
+            {
+                entity.Property(e => e.Email).IsUnicode(false);
             });
         }
     }

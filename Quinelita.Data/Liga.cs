@@ -9,16 +9,15 @@ namespace Quinelita.Data
     {
         public Liga()
         {
-            Equipo = new HashSet<Equipo>();
+            Equipos = new HashSet<Equipo>();
         }
 
         public int Id { get; set; }
-
         [Required]
         [StringLength(50)]
         public string Nombre { get; set; }
 
         [InverseProperty("Liga")]
-        public ICollection<Equipo> Equipo { get; set; }
+        public ICollection<Equipo> Equipos { get; set; }
     }
 }

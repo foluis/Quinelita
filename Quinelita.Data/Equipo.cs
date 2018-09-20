@@ -9,26 +9,28 @@ namespace Quinelita.Data
     {
         public Equipo()
         {
-            PartidosJornadaEquipoLocal = new HashSet<PartidosJornada>();
-            PartidosJornadaEquipoVisitante = new HashSet<PartidosJornada>();
+            PartidosEquipoLocal = new HashSet<Partido>();
+            PartidosEquipoVisitante = new HashSet<Partido>();
+            QuinelasJornada = new HashSet<QuinelaJornada>();
+            ResultadosJornada = new HashSet<ResultadoJornada>();
         }
 
         public int Id { get; set; }
-
-		[Required]
+        [Required]
         [StringLength(50)]
-		public string Nombre { get; set; }
-
-		public int LigaId { get; set; }
+        public string Nombre { get; set; }
+        public int LigaId { get; set; }
 
         [ForeignKey("LigaId")]
-        [InverseProperty("Equipo")]
+        [InverseProperty("Equipos")]
         public Liga Liga { get; set; }
-
         [InverseProperty("EquipoLocal")]
-        public ICollection<PartidosJornada> PartidosJornadaEquipoLocal { get; set; }
-
+        public ICollection<Partido> PartidosEquipoLocal { get; set; }
         [InverseProperty("EquipoVisitante")]
-        public ICollection<PartidosJornada> PartidosJornadaEquipoVisitante { get; set; }
+        public ICollection<Partido> PartidosEquipoVisitante { get; set; }
+        [InverseProperty("Ganador")]
+        public ICollection<QuinelaJornada> QuinelasJornada { get; set; }
+        [InverseProperty("Ganador")]
+        public ICollection<ResultadoJornada> ResultadosJornada { get; set; }
     }
 }
