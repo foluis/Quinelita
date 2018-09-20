@@ -85,7 +85,11 @@ namespace Quinelita.Data.Properties {
         ///VALUES (3,&apos;Equipo3&apos;,1)
         ///INSERT INTO Equipos (Id,Nombre,LigaId)
         ///VALUES (4,&apos;Equipo4&apos;,1)
-        ///SET IDENTITY_INSERT Equipos OFF; .
+        ///SET IDENTITY_INSERT Equipos OFF; 
+        ///
+        ///SET IDENTITY_INSERT Usuarios ON; 
+        ///INSERT INTO Usuarios (Id,Email)
+        ///VALUE [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SeedData_Up {
             get {
