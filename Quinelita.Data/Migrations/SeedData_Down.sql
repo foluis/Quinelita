@@ -1,0 +1,2 @@
+DELETE Equipos
+DELETE Ligas

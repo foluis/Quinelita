@@ -59,7 +59,6 @@ namespace Quinelita.Api.Controllers
 			await _context.SaveChangesAsync();
 						
 			return CreatedAtAction("Get", new { id = jornada.Id }, jornada);
-
 		}
 	}
 }

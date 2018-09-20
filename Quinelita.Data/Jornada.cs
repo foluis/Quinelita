@@ -13,9 +13,9 @@ namespace Quinelita.Data
         }
 
         public int Id { get; set; }
-
         [Column(TypeName = "date")]
         public DateTime Fecha { get; set; }
+        public bool? AbiertaAlPublico { get; set; }
 
         [InverseProperty("Jornada")]
         public ICollection<Partido> Partidos { get; set; }
