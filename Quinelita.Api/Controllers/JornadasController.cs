@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Quinelita.Data;
 using System;
 using System.Collections.Generic;
@@ -59,6 +60,45 @@ namespace Quinelita.Api.Controllers
 			await _context.SaveChangesAsync();
 						
 			return CreatedAtAction("Get", new { id = jornada.Id }, jornada);
+		}
+
+		[HttpPut("{id}")]
+		public async Task<IActionResult> Put([FromRoute] int id, [FromBody] Jornada jornada)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+
+			if (id != jornada.Id)
+			{
+				return BadRequest();
+			}
+
+			_context.Entry(jornada).State = EntityState.Modified;
+
+			try
+			{
+				await _context.SaveChangesAsync();
+			}
+			catch (DbUpdateConcurrencyException)
+			{
+				if (!JornadaExists(id))
+				{
+					return NotFound();
+				}
+				else
+				{
+					throw;
+				}
+			}
+
+			return NoContent();
+		}
+
+		private bool JornadaExists(int id)
+		{
+			return _context.Jornadas.Any(e => e.Id == id);
 		}
 	}
 }
