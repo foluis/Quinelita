@@ -35,18 +35,6 @@ namespace Quinelita.Api.Controllers
 			var quinelasJornada = _context.QuinelasJornada
 				.Where(l => l.Partido.JornadaId == jornadaId);
 
-			//var quinelasJornada = from x in _context.QuinelasJornada
-			//					   join y in _context.ResultadosQuinela			
-			//					   on new { x.UsuarioId, x.PartidoId } equals new { y.UsuarioId, y.PartidoId }
-			//					   where x.Partido.JornadaId == jornadaId
-			//					   select x;
-
-			//var quinelasJornada = from x in _context.QuinelasJornada
-			//					  join y in _context.ResultadosQuinela
-			//					  on 1 equals 1
-			//					  where x.Partido.JornadaId == jornadaId && (x.UsuarioId != y.UsuarioId && x.PartidoId != y.PartidoId)
-			//					  select x;
-
 			var resultadosJornada = _context.ResultadosJornada
 				.Where(l => l.Partido.JornadaId == jornadaId);
 
