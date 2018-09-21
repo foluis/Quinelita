@@ -22,6 +22,7 @@ namespace Quinelita.Data
         public virtual DbSet<QuinelaJornada> QuinelasJornada { get; set; }
         public virtual DbSet<ResultadoJornada> ResultadosJornada { get; set; }
         public virtual DbSet<ResultadoQuinela> ResultadosQuinela { get; set; }
+        public virtual DbSet<TipoPuntuacion> TiposPuntuacion { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -132,11 +133,24 @@ namespace Quinelita.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ResultadosQuinela_Partidos");
 
+                entity.HasOne(d => d.TipoPuntuacion)
+                    .WithMany(p => p.ResultadosQuinela)
+                    .HasForeignKey(d => d.TipoPuntuacionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ResultadosQuinela_TiposPuntuacion");
+
                 entity.HasOne(d => d.Usuario)
                     .WithMany(p => p.ResultadosQuinela)
                     .HasForeignKey(d => d.UsuarioId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ResultadosQuinela_Usuarios");
+            });
+
+            modelBuilder.Entity<TipoPuntuacion>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Nombre).IsUnicode(false);
             });
 
             modelBuilder.Entity<Usuario>(entity =>

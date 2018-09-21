@@ -26,8 +26,8 @@ namespace Quinelita.Api.Controllers
 		}
 
 		[Route("Jornada/{jornadaId}")]
-		[HttpGet]
-		public async Task<IActionResult> Get(int jornadaId)
+		[HttpPost]
+		public async Task<IActionResult> Post(int jornadaId)
 		{
 			List<ResultadoQuinela> resultadosQuinela = new List<ResultadoQuinela>();
 

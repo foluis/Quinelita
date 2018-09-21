@@ -10,7 +10,7 @@ using Quinelita.Data;
 namespace Quinelita.Data.Migrations
 {
     [DbContext(typeof(QuinelitaContext))]
-    [Migration("20180920172844_InitialCreate")]
+    [Migration("20180921001108_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,7 +42,7 @@ namespace Quinelita.Data.Migrations
                     b.ToTable("Equipos");
                 });
 
-            modelBuilder.Entity("Quinelita.Data.Jornada", b =>
+            modelBuilder.Entity("Quinelita.Data.Jornadas", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -173,15 +173,33 @@ namespace Quinelita.Data.Migrations
 
                     b.Property<int>("Puntos");
 
+                    b.Property<int>("TipoPuntuacionId");
+
                     b.Property<int>("UsuarioId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PartidoId");
 
+                    b.HasIndex("TipoPuntuacionId");
+
                     b.HasIndex("UsuarioId");
 
                     b.ToTable("ResultadosQuinela");
+                });
+
+            modelBuilder.Entity("Quinelita.Data.TipoPuntuacion", b =>
+                {
+                    b.Property<int>("Id");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TiposPuntuacion");
                 });
 
             modelBuilder.Entity("Quinelita.Data.Usuario", b =>
@@ -220,7 +238,7 @@ namespace Quinelita.Data.Migrations
                         .HasForeignKey("EquipoVisitanteId")
                         .HasConstraintName("FK_Partidos_Equipos1");
 
-                    b.HasOne("Quinelita.Data.Jornada", "Jornada")
+                    b.HasOne("Quinelita.Data.Jornadas", "Jornada")
                         .WithMany("Partidos")
                         .HasForeignKey("JornadaId")
                         .HasConstraintName("FK_Partidos_Jornadas");
@@ -263,6 +281,11 @@ namespace Quinelita.Data.Migrations
                         .WithMany("ResultadosQuinela")
                         .HasForeignKey("PartidoId")
                         .HasConstraintName("FK_ResultadosQuinela_Partidos");
+
+                    b.HasOne("Quinelita.Data.TipoPuntuacion", "TipoPuntuacion")
+                        .WithMany("ResultadosQuinela")
+                        .HasForeignKey("TipoPuntuacionId")
+                        .HasConstraintName("FK_ResultadosQuinela_TiposPuntuacion");
 
                     b.HasOne("Quinelita.Data.Usuario", "Usuario")
                         .WithMany("ResultadosQuinela")

@@ -35,6 +35,18 @@ namespace Quinelita.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TiposPuntuacion",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false),
+                    Nombre = table.Column<string>(unicode: false, maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TiposPuntuacion", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Usuarios",
                 columns: table => new
                 {
@@ -175,7 +187,8 @@ namespace Quinelita.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UsuarioId = table.Column<int>(nullable: false),
                     PartidoId = table.Column<int>(nullable: false),
-                    Puntos = table.Column<int>(nullable: false)
+                    Puntos = table.Column<int>(nullable: false),
+                    TipoPuntuacionId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -184,6 +197,12 @@ namespace Quinelita.Data.Migrations
                         name: "FK_ResultadosQuinela_Partidos",
                         column: x => x.PartidoId,
                         principalTable: "Partidos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ResultadosQuinela_TiposPuntuacion",
+                        column: x => x.TipoPuntuacionId,
+                        principalTable: "TiposPuntuacion",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -245,6 +264,11 @@ namespace Quinelita.Data.Migrations
                 column: "PartidoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ResultadosQuinela_TipoPuntuacionId",
+                table: "ResultadosQuinela",
+                column: "TipoPuntuacionId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ResultadosQuinela_UsuarioId",
                 table: "ResultadosQuinela",
                 column: "UsuarioId");
@@ -263,6 +287,9 @@ namespace Quinelita.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Partidos");
+
+            migrationBuilder.DropTable(
+                name: "TiposPuntuacion");
 
             migrationBuilder.DropTable(
                 name: "Usuarios");

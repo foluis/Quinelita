@@ -71,25 +71,23 @@ namespace Quinelita.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INSERT INTO Ligas (Id,Nombre)
-        ///VALUES (1,&apos;Mexicana&apos;)
-        ///INSERT INTO Ligas (Id,Nombre)
-        ///VALUES (2,&apos;Colombiana&apos;)
-        ///
-        ///SET IDENTITY_INSERT Equipos ON; 
-        ///INSERT INTO Equipos (Id,Nombre,LigaId)
-        ///VALUES (1,&apos;Equipo1&apos;,1)
-        ///INSERT INTO Equipos (Id,Nombre,LigaId)
-        ///VALUES (2,&apos;Equipo2&apos;,1)
-        ///INSERT INTO Equipos (Id,Nombre,LigaId)
-        ///VALUES (3,&apos;Equipo3&apos;,1)
-        ///INSERT INTO Equipos (Id,Nombre,LigaId)
-        ///VALUES (4,&apos;Equipo4&apos;,1)
-        ///SET IDENTITY_INSERT Equipos OFF; 
-        ///
-        ///SET IDENTITY_INSERT Usuarios ON; 
+        ///   Looks up a localized string similar to SET IDENTITY_INSERT Usuarios ON; 
         ///INSERT INTO Usuarios (Id,Email)
-        ///VALUE [rest of string was truncated]&quot;;.
+        ///VALUES (1,&apos;Usuario1@email.com&apos;)
+        ///INSERT INTO Usuarios (Id,Email)
+        ///VALUES (2,&apos;Usuario2@email.com&apos;)
+        ///INSERT INTO Usuarios (Id,Email)
+        ///VALUES (3,&apos;Usuario3@email.com&apos;)
+        ///INSERT INTO Usuarios (Id,Email)
+        ///VALUES (4,&apos;Usuario4@email.com&apos;)
+        ///INSERT INTO Usuarios (Id,Email)
+        ///VALUES (5,&apos;Usuario5@email.com&apos;)
+        ///INSERT INTO Usuarios (Id,Email)
+        ///VALUES (6,&apos;Usuario6@email.com&apos;)
+        ///SET IDENTITY_INSERT Usuarios OFF; 
+        ///
+        ///INSERT INTO Ligas (Id,Nombre)
+        ///VALUES (1,&apos;M [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SeedData_Up {
             get {
