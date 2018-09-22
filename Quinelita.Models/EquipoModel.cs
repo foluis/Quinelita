@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Quinelita.Models
 {
-	public class EquipoDTO
+	public class EquipoModel
 	{
 		public int Id { get; set; }
 

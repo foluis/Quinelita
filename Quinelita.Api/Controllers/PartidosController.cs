@@ -27,23 +27,23 @@ namespace Quinelita.Api.Controllers
 
 		[Route("{jornadaId}")]
 		[HttpGet]
-		public IEnumerable<PartidosJornadaDTO> GetPartidosJornadaXJornada(int jornadaId)
+		public IEnumerable<PartidosJornadaModel> GetPartidosJornadaXJornada(int jornadaId)
 		{
 			return _context.Partidos
 				.Include(l => l.EquipoLocal)
 				.Include(v => v.EquipoVisitante)
 				.Where(x => x.JornadaId == jornadaId)
 				.Select(c =>
-						new PartidosJornadaDTO
+						new PartidosJornadaModel
 						{
 							Id = c.Id,
 							Fecha = c.Fecha,
-							EquipoLocal = new EquipoDTO()
+							EquipoLocal = new EquipoModel()
 							{
 								Id = c.EquipoLocal.Id,
 								Nombre = c.EquipoLocal.Nombre
 							},
-							EquipoVisitante = new EquipoDTO()
+							EquipoVisitante = new EquipoModel()
 							{
 								Id = c.EquipoVisitante.Id,
 								Nombre = c.EquipoVisitante.Nombre

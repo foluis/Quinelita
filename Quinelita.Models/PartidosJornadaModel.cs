@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Quinelita.Models
 {
-	public class PartidosJornadaDTO
+	public class PartidosJornadaModel
 	{
 		public int Id { get; set; }
 		
@@ -12,8 +12,8 @@ namespace Quinelita.Models
 
 		public bool MostrarMarcadores { get; set; }
 
-		public EquipoDTO EquipoLocal { get; set; }
+		public EquipoModel EquipoLocal { get; set; }
 
-		public EquipoDTO EquipoVisitante { get; set; }
+		public EquipoModel EquipoVisitante { get; set; }
 	}
 }
