@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Quinelita.Data;
@@ -38,7 +41,20 @@ namespace Quinelita.Api.Controllers
 			{
 				_context.Usuarios.Add(usuario);
 				await _context.SaveChangesAsync();
-				return Ok();//devolver usuario insertado
+
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier,usuario.Email),
+                    new Claim(ClaimTypes.Name,usuario.Email),
+                    new Claim(ClaimTypes.Email,usuario.Email)
+                };
+
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var principal = new ClaimsPrincipal(identity);
+
+                await HttpContext.SignInAsync(principal);
+
+                return Ok();//devolver usuario insertado
 			}
 			else
 			{
@@ -52,108 +68,108 @@ namespace Quinelita.Api.Controllers
 			
 		}
 
-		//[Route("login")]
-		//[ValidateAntiForgeryToken]
-		//[HttpPost]
-		//public async Task<IActionResult> LogIn(LogInModel model)
-		//{
-		//	if (!ModelState.IsValid)
-		//	{
-		//		return View(model);
-		//	}
+        //[Route("login")]
+        //[ValidateAntiForgeryToken]
+        //[HttpPost]
+        //public async Task<IActionResult> LogIn(LogInModel model)
+        //{
+        //	if (!ModelState.IsValid)
+        //	{
+        //		return View(model);
+        //	}
 
-		//	var user = await userService.Authenticate(model.Email, model.Password);
-		//	if (user == null)
-		//	{
-		//		ModelState.AddModelError("InvalidCredentials", "Could not validate your credentials");
-		//		return View(model);
-		//	}
+        //	var user = await userService.Authenticate(model.Email, model.Password);
+        //	if (user == null)
+        //	{
+        //		ModelState.AddModelError("InvalidCredentials", "Could not validate your credentials");
+        //		return View(model);
+        //	}
 
-		//	return await SignInUser(user);
-		//}
-			   
-		//[Route("logout")]
-		//[ValidateAntiForgeryToken]
-		//[HttpPost]
-		//public async Task<IActionResult> LogOut()
-		//{
-		//	await HttpContext.SignOutAsync();
-		//	return RedirectToAction("Index", "Home");
-		//}
+        //	return await SignInUser(user);
+        //}
 
-		//private async Task<IActionResult> SignInUser(User user)
-		//{
-		//	var claims = new List<Claim>
-		//	{
-		//		new Claim(ClaimTypes.NameIdentifier, user.Email),
-		//		new Claim(ClaimTypes.Name, user.Username),
-		//		new Claim(ClaimTypes.Email, user.Email),
-		//	};
-		//	var identity = new ClaimsIdentity(claims);
-		//	var principal = new ClaimsPrincipal(identity);
+        [Route("salir")]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public async Task<IActionResult> Salir()
+        {
+            await HttpContext.SignOutAsync();
+            return Ok();
+        }
 
-		//	await HttpContext.SignInAsync(principal);
+        //private async Task<IActionResult> SignInUser(User user)
+        //{
+        //	var claims = new List<Claim>
+        //	{
+        //		new Claim(ClaimTypes.NameIdentifier, user.Email),
+        //		new Claim(ClaimTypes.Name, user.Username),
+        //		new Claim(ClaimTypes.Email, user.Email),
+        //	};
+        //	var identity = new ClaimsIdentity(claims);
+        //	var principal = new ClaimsPrincipal(identity);
 
-		//	return RedirectToAction("UserInformation", "Home");
-		//}
+        //	await HttpContext.SignInAsync(principal);
 
-		//[Route("loginexternal/{id}")]
-		//public Task LogInExternal(string id)
-		//{
-		//	//return HttpContext.ChallengeAsync(id, new AuthenticationProperties { RedirectUri = "/userinfo" });
-		//	return HttpContext.ChallengeAsync(id, new AuthenticationProperties { RedirectUri = "/auth/registerexternal" });
-		//}
+        //	return RedirectToAction("UserInformation", "Home");
+        //}
 
-		//[Route("registerexternal")]
-		//public async Task<IActionResult> RegisterExternal(string authprovider)
-		//{
-		//	var authResult = await HttpContext.AuthenticateAsync("TempCookie");
-		//	if (!authResult.Succeeded)
-		//	{
-		//		return RedirectToAction("Index", "Home");
-		//	}
+        //[Route("loginexternal/{id}")]
+        //public Task LogInExternal(string id)
+        //{
+        //	//return HttpContext.ChallengeAsync(id, new AuthenticationProperties { RedirectUri = "/userinfo" });
+        //	return HttpContext.ChallengeAsync(id, new AuthenticationProperties { RedirectUri = "/auth/registerexternal" });
+        //}
 
-		//	var user = await userService.AuthenticateExternal(authResult.Principal.FindFirstValue(ClaimTypes.NameIdentifier));
-		//	if (user != null)
-		//	{
-		//		return await SignInExternal(user);
-		//	}
+        //[Route("registerexternal")]
+        //public async Task<IActionResult> RegisterExternal(string authprovider)
+        //{
+        //	var authResult = await HttpContext.AuthenticateAsync("TempCookie");
+        //	if (!authResult.Succeeded)
+        //	{
+        //		return RedirectToAction("Index", "Home");
+        //	}
 
-		//	return View(new RegisterExternalModel
-		//	{
-		//		Name = authResult.Principal.FindFirstValue(ClaimTypes.Name),
-		//		Email = authResult.Principal.FindFirstValue(ClaimTypes.Email)
-		//	});
-		//}
+        //	var user = await userService.AuthenticateExternal(authResult.Principal.FindFirstValue(ClaimTypes.NameIdentifier));
+        //	if (user != null)
+        //	{
+        //		return await SignInExternal(user);
+        //	}
 
-		//[Route("registerexternal/{id}")]
-		//[ValidateAntiForgeryToken]
-		//[HttpPost]
-		//public async Task<IActionResult> RegisterExternal(string id, RegisterExternalModel model)
-		//{
-		//	var authResult = await HttpContext.AuthenticateAsync("TempCookie");
-		//	if (!authResult.Succeeded)
-		//	{
-		//		return RedirectToAction("Index", "Home");
-		//	}
+        //	return View(new RegisterExternalModel
+        //	{
+        //		Name = authResult.Principal.FindFirstValue(ClaimTypes.Name),
+        //		Email = authResult.Principal.FindFirstValue(ClaimTypes.Email)
+        //	});
+        //}
 
-		//	if (!ModelState.IsValid)
-		//	{
-		//		return View(model);
-		//	}
+        //[Route("registerexternal/{id}")]
+        //[ValidateAntiForgeryToken]
+        //[HttpPost]
+        //public async Task<IActionResult> RegisterExternal(string id, RegisterExternalModel model)
+        //{
+        //	var authResult = await HttpContext.AuthenticateAsync("TempCookie");
+        //	if (!authResult.Succeeded)
+        //	{
+        //		return RedirectToAction("Index", "Home");
+        //	}
 
-		//	var user = await userService.AddExternal(authResult.Principal.FindFirstValue(ClaimTypes.NameIdentifier), model.Name, model.Email);
+        //	if (!ModelState.IsValid)
+        //	{
+        //		return View(model);
+        //	}
 
-		//	return await SignInExternal(user);
-		//}
+        //	var user = await userService.AddExternal(authResult.Principal.FindFirstValue(ClaimTypes.NameIdentifier), model.Name, model.Email);
 
-		//private async Task<IActionResult> SignInExternal(User user)
-		//{
-		//	await HttpContext.SignOutAsync("TempCookie");
-		//	return await SignInUser(user);
-		//}
+        //	return await SignInExternal(user);
+        //}
+
+        //private async Task<IActionResult> SignInExternal(User user)
+        //{
+        //	await HttpContext.SignOutAsync("TempCookie");
+        //	return await SignInUser(user);
+        //}
 
 
 
-	}
+    }
 }

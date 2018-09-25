@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 
 using Microsoft.EntityFrameworkCore;
 using Quinelita.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Quinelita.Api
 {
@@ -34,7 +35,8 @@ namespace Quinelita.Api
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-			services.AddAuthenticationCore();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +52,8 @@ namespace Quinelita.Api
 			}
 
 			app.UseHttpsRedirection();
+
+            app.UseAuthentication();
 			app.UseMvc();
 		}
 	}
