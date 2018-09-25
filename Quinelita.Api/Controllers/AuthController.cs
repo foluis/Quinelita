@@ -89,7 +89,7 @@ namespace Quinelita.Api.Controllers
         //}
 
         [Route("salir")]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> Salir()
         {
