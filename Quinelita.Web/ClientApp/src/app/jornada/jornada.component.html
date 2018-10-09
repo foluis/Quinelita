@@ -1,7 +1,18 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-4">
-      <div style="border: 1px solid red">jornada Component</div>
+    <div class="col-sm-12">
+      <input
+             (keyup.enter)="createJornada()"
+             ype="text" class="form-control" />
+
+      <ul class="list-group">
+        <li
+            *ngFor="let jornada of jornadas"
+            class="list-group-item">
+          {{jornada.fecha}}
+        </li>
+      </ul>
+
     </div>
   </div>
 </div>
