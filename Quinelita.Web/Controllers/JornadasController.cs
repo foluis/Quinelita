@@ -13,93 +13,115 @@ namespace Quinelita.Web.Controllers
     [ApiController]
     public class JornadasController : ControllerBase
     {
-		private readonly QuinelitaContext _context;
+        private readonly QuinelitaContext _context;
 
-		public JornadasController(QuinelitaContext context)
-		{
-			_context = context;
-		}
+        public JornadasController(QuinelitaContext context)
+        {
+            _context = context;
+        }
 
-		[HttpGet]
-		public IEnumerable<Jornada> Get()
-		{
-			var result = _context.Jornadas.Select(c =>
-				new Jornada
-				{
-					Id = c.Id,
-					Fecha = c.Fecha,
-					Partidos = c.Partidos
-				});
+        //[HttpGet]
+        //public IEnumerable<Jornada> Get()
+        //{
+        //	var result = _context.Jornadas.Select(c =>
+        //		new Jornada
+        //		{
+        //			Id = c.Id,
+        //			Fecha = c.Fecha,
+        //			Partidos = c.Partidos
+        //		});
 
-			return result;
-		}
+        //	return result;
+        //}
 
-		[Route("{jornadaId}")]
-		[HttpGet]
-		public IEnumerable<Jornada> Get(int jornadaId)
-		{
-			var result = _context.Jornadas.Select(c =>
-				new Jornada
-				{
-					Id = c.Id,
-					Fecha = c.Fecha,
-					Partidos = c.Partidos
-				}).Where(x => x.Id == jornadaId);
+        [HttpGet]
+        public IActionResult Get()
+        {
+            try
+            {
+                var result = _context.Jornadas.Select(c =>
+                    new Jornada
+                    {
+                        Id = c.Id,
+                        Fecha = c.Fecha,
+                        Partidos = c.Partidos
+                    });
 
-			return result;
-		}
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                var error = ex.ToString();
+                return StatusCode(500); 
+            }
+        }
 
-		[HttpPost]
-		public async Task<IActionResult> Post([FromBody] string fecha)
-		{
-			Jornada jornada = new Jornada()
-			{
-				Fecha = DateTime.Parse(fecha)
-			};
+        [Route("{jornadaId}")]
+        [HttpGet]
+        public IEnumerable<Jornada> Get(int jornadaId)
+        {
+            var result = _context.Jornadas.Select(c =>
+                new Jornada
+                {
+                    Id = c.Id,
+                    Fecha = c.Fecha,
+                    Partidos = c.Partidos
+                }).Where(x => x.Id == jornadaId);
 
-			_context.Jornadas.Add(jornada);
-			await _context.SaveChangesAsync();
+            return result;
+        }
 
-			return CreatedAtAction("Get", new { id = jornada.Id }, jornada);
-		}
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] string fecha)
+        {
+            Jornada jornada = new Jornada()
+            {
+                Fecha = DateTime.Parse(fecha)
+            };
 
-		[HttpPut("{id}")]
-		public async Task<IActionResult> Put([FromRoute] int id, [FromBody] Jornada jornada)
-		{
-			if (!ModelState.IsValid)
-			{
-				return BadRequest(ModelState);
-			}
+            _context.Jornadas.Add(jornada);
+            await _context.SaveChangesAsync();
 
-			if (id != jornada.Id)
-			{
-				return BadRequest();
-			}
+            return CreatedAtAction("Get", new { id = jornada.Id }, jornada);
+        }
 
-			_context.Entry(jornada).State = EntityState.Modified;
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put([FromRoute] int id, [FromBody] Jornada jornada)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-			try
-			{
-				await _context.SaveChangesAsync();
-			}
-			catch (DbUpdateConcurrencyException)
-			{
-				if (!JornadaExists(id))
-				{
-					return NotFound();
-				}
-				else
-				{
-					throw;
-				}
-			}
+            if (id != jornada.Id)
+            {
+                return BadRequest();
+            }
 
-			return NoContent();
-		}
+            _context.Entry(jornada).State = EntityState.Modified;
 
-		private bool JornadaExists(int id)
-		{
-			return _context.Jornadas.Any(e => e.Id == id);
-		}
-	}
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!JornadaExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        private bool JornadaExists(int id)
+        {
+            return _context.Jornadas.Any(e => e.Id == id);
+        }
+    }
 }
