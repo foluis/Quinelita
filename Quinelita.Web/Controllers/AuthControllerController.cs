@@ -48,16 +48,16 @@ namespace Quinelita.Web.Controllers
                         ,
                         new Claim(
                             ClaimTypes.UserData,"mas cosas, se puede json?"
-                        ),
-                        new Claim(
-                            "InfoDeLaBase_EsAuditor",""
                         )
+                        //,new Claim(
+                        //    "InfoDeLaBase_EsAuditor",""
+                        //)
                     };
 
                     var token = new JwtSecurityToken(
                         audience: "localhost:44322",
                         issuer: "localhost:44322",
-                        expires: DateTime.Now.AddMinutes(9),
+                        expires: DateTime.Now.AddMinutes(1),
                         claims: userClaims,
                         signingCredentials: signingCredentials
                         );

@@ -58,6 +58,7 @@ namespace Quinelita.Web.Controllers
             }
         }
 
+        [Authorize(Policy = "EsAuditor")]
         [Route("{jornadaId}")]
         [HttpGet]
         public IEnumerable<Jornada> Get(int jornadaId)

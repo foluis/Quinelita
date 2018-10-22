@@ -25,17 +25,23 @@ namespace Quinelita.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(Options => Options.TokenValidationParameters =
-            new TokenValidationParameters
-            {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateIssuerSigningKey = true,
-                ValidIssuer = "localhost:44322",
-                ValidAudience = "localhost:44322",
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("YourSecurityKeyFromApp.config.js"))
-             });
+                .AddJwtBearer(Options => Options
+                .TokenValidationParameters =
+                new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = "localhost:44322",
+                    ValidAudience = "localhost:44322",
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("YourSecurityKeyFromApp.config.js"))
+                });
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("EsAuditor",
+                    policy => policy.RequireClaim("InfoDeLaBase_EsAuditor"));
+            });
 
             services.AddDbContext<QuinelitaContext>(options => options.UseSqlServer(
                 Configuration.GetConnectionString("QuinelitaDatabase")));
