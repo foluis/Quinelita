@@ -18,27 +18,6 @@ namespace Quinelita.Web.Controllers
         [HttpPost("token")]
         public IActionResult Token()
         {
-            var userClaims = new[] { new Claim(ClaimTypes.Name, "Luis Forero") };
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Your very big key"));
-            var credential = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-
-            var token = new JwtSecurityToken(
-                audience: "localhost:23456",
-                issuer: "otro",
-                expires: DateTime.Now.AddMinutes(3),
-                claims: userClaims,
-                signingCredentials: credential
-                );
-
-            var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-
-            return Ok(tokenString);
-        }
-
-        [HttpPost("token2")]
-        public IActionResult Token2()
-        {
 
             var header = Request.Headers["Authorization"];
             if (header.ToString().StartsWith("Basic"))
@@ -69,6 +48,9 @@ namespace Quinelita.Web.Controllers
                         ,
                         new Claim(
                             ClaimTypes.UserData,"mas cosas, se puede json?"
+                        ),
+                        new Claim(
+                            "InfoDeLaBase_EsAuditor",""
                         )
                     };
 
