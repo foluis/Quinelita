@@ -13,6 +13,11 @@ namespace Quinelita.Data
         }
 
         public int Id { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string Nombre { get; set; }
+
         [Column(TypeName = "date")]
         public DateTime Fecha { get; set; }
         public bool? AbiertaAlPublico { get; set; }

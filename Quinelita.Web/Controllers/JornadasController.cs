@@ -10,7 +10,7 @@ using Quinelita.Data;
 
 namespace Quinelita.Web.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class JornadasController : ControllerBase
@@ -118,6 +118,22 @@ namespace Quinelita.Web.Controllers
                     throw;
                 }
             }
+
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] int id, [FromBody] Jornada jornada)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != jornada.Id)
+            {
+                return BadRequest();
+            }           
 
             return NoContent();
         }
