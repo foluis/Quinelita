@@ -45,6 +45,7 @@ namespace Quinelita.Web.Controllers
                     new Jornada
                     {
                         Id = c.Id,
+                        Nombre = c.Nombre,
                         Fecha = c.Fecha,
                         Partidos = c.Partidos
                     });
@@ -67,6 +68,7 @@ namespace Quinelita.Web.Controllers
                 new Jornada
                 {
                     Id = c.Id,
+                    Nombre = c.Nombre,
                     Fecha = c.Fecha,
                     Partidos = c.Partidos
                 }).Where(x => x.Id == jornadaId);
@@ -75,12 +77,8 @@ namespace Quinelita.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] string fecha)
-        {
-            Jornada jornada = new Jornada()
-            {
-                Fecha = DateTime.Parse(fecha)
-            };
+        public async Task<IActionResult> Post([FromBody] Jornada jornada)
+        {         
 
             _context.Jornadas.Add(jornada);
             await _context.SaveChangesAsync();

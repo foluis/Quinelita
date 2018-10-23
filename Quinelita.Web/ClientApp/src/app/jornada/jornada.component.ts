@@ -27,9 +27,17 @@ export class JornadaComponent {
 
     var d = new Date();
     var date = d.getDate()
+
+    //let jornada = {
+    //  nombre:"Prueba",
+    //  fecha: this.formatDate_YYYYMMDD(d),
+    //  abiertaAlPublico:true
+    //};
+
     let jornada = {
-      //fecha: d.toTimeString()
-      fecha: this.formatDate_YYYYMMDD(d)
+      nombre: "Prueba2",
+      fecha: new Date(),
+      abiertaAlPublico: true
     };
 
     //let stringDate: string = "2018-10-09";
@@ -39,7 +47,7 @@ export class JornadaComponent {
     //    console.log(response);
     //  });
 
-    this.http.post(this.url, "2018-10-09")
+    this.http.post(this.url, jornada)
       .subscribe(response => {
         console.log(response);
       });
