@@ -25,30 +25,18 @@ export class JornadaComponent {
 
   createJornada(nombreJornada: HTMLInputElement) {   
 
-    var d = new Date();
-    var date = d.getDate()
-
-    //let jornada = {
-    //  nombre:"Prueba",
-    //  fecha: this.formatDate_YYYYMMDD(d),
-    //  abiertaAlPublico:true
-    //};
-
     let jornada = {
-      nombre: "Prueba2",
+      nombre: nombreJornada.value,
       fecha: new Date(),
       abiertaAlPublico: true
     };
 
-    //let stringDate: string = "2018-10-09";
-    
-    //this.http.post(this.url, JSON.stringify(stringDate))
-    //  .subscribe(response => {
-    //    console.log(response);
-    //  });
-
+    nombreJornada.value = '';
+    console.log(jornada);
     this.http.post(this.url, jornada)
       .subscribe(response => {
+        //jornada['id'] = response.
+        this.jornadas.splice(0, 0, jornada)
         console.log(response);
       });
   }

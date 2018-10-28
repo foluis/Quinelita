@@ -41,7 +41,8 @@ namespace Quinelita.Web.Controllers
         {
             try
             {
-                var result = _context.Jornadas.Select(c =>
+                var result = _context.Jornadas.OrderByDescending(o => o.Fecha)
+                    .Select(c =>
                     new Jornada
                     {
                         Id = c.Id,
