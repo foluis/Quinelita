@@ -14,6 +14,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { JornadaComponent } from './jornada/jornada.component';
 import { CrearJornadaComponent } from './jornada/crear-jornada.component';
+import { DetalleJornadaComponent } from './jornada/detalle-jornada.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { CrearJornadaComponent } from './jornada/crear-jornada.component';
     LoginComponent,
     RegisterComponent,
     JornadaComponent,
-    CrearJornadaComponent
+    CrearJornadaComponent,
+    DetalleJornadaComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -39,6 +41,7 @@ import { CrearJornadaComponent } from './jornada/crear-jornada.component';
       { path: 'register', component: RegisterComponent },
       { path: 'jornada', component: JornadaComponent },
       { path: 'crear-jornada', component: CrearJornadaComponent },
+      { path: 'detalle-jornada', component: DetalleJornadaComponent },
     ])
   ],
   providers: [],

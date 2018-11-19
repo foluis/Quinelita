@@ -1,0 +1,19 @@
+<div>
+  <h1>
+    {{jornada.nombre}}
+  </h1>
+  <div class="form-group">
+    <label>Fecha:</label>
+    <label>{{jornada.fecha}}</label>
+  </div>
+  <div class="form-group">
+    <label>Esta abierta al publico?:</label>
+    <label>{{jornada.abiertaAlPublico}}</label>
+  </div>
+  <ul class="list-group">
+    <li *ngFor="let partido of jornada.partidos; let i = index" (click)="detallePartido(i)"
+        class="list-group-item">
+      {{partido.equipoLocalId}}
+    </li>
+  </ul>
+</div>

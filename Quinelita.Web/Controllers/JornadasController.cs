@@ -41,15 +41,17 @@ namespace Quinelita.Web.Controllers
         {
             try
             {
-                var result = _context.Jornadas.OrderByDescending(o => o.Fecha)
-                    .Select(c =>
-                    new Jornada
-                    {
-                        Id = c.Id,
-                        Nombre = c.Nombre,
-                        Fecha = c.Fecha,
-                        Partidos = c.Partidos
-                    });
+                var result = _context.Jornadas
+                    .OrderByDescending(o => o.Fecha)
+                    //.Select(c =>
+                    //new Jornada
+                    //{
+                    //    Id = c.Id,
+                    //    Nombre = c.Nombre,
+                    //    Fecha = c.Fecha,
+                    //    Partidos = c.Partidos
+                    //})
+                    ;
 
                 return Ok(result);
             }
@@ -60,10 +62,21 @@ namespace Quinelita.Web.Controllers
             }
         }
 
-        [Authorize(Policy = "EsAuditor")]
+        //[Authorize(Policy = "EsAuditor")]
         [Route("{jornadaId}")]
         [HttpGet]
-        public IEnumerable<Jornada> Get(int jornadaId)
+        public IActionResult Get(int jornadaId)
+        {
+            var result = _context.Jornadas
+                .Where(x => x.Id == jornadaId)
+                .FirstOrDefault();
+
+            return Ok(result);
+        }
+
+        [Route("GetJornadaConPartidos/{jornadaId}")]
+        [HttpGet]
+        public IActionResult GetJornadaConPartidos(int jornadaId)
         {
             var result = _context.Jornadas.Select(c =>
                 new Jornada
@@ -71,10 +84,12 @@ namespace Quinelita.Web.Controllers
                     Id = c.Id,
                     Nombre = c.Nombre,
                     Fecha = c.Fecha,
-                    Partidos = c.Partidos
-                }).Where(x => x.Id == jornadaId);
+                    Partidos = c.Partidos,
+                    AbiertaAlPublico = c.AbiertaAlPublico
+                }).Where(x => x.Id == jornadaId)
+                .FirstOrDefault();
 
-            return result;
+            return Ok(result);
         }
 
         [HttpPost]

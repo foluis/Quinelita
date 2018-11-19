@@ -29,11 +29,8 @@ export class CrearJornadaComponent {
     nombreJornada.value = '';
     console.log(jornada);
     this.http.post(this.url, jornada)
-      .subscribe(response => {
-        //jornada['id'] = response.
-        //this.jornadas.splice(0, 0, jornada)
-        this.router.navigateByUrl('/jornada');
-        //this.router.navigate(['/user']);
+      .subscribe(response => {  
+        this.router.navigateByUrl('/jornada');        
         console.log(response);
       });
   }
