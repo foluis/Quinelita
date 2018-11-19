@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Quinelita.Data;
 
 namespace Quinelita.Data.Migrations
 {
     [DbContext(typeof(QuinelitaContext))]
-    partial class QuinelitaContextModelSnapshot : ModelSnapshot
+    [Migration("20181118235635_UpdateTableJornada_ChangeDateFechaToDateTime")]
+    partial class UpdateTableJornada_ChangeDateFechaToDateTime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

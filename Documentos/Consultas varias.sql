@@ -4,7 +4,7 @@ SELECT * FROM [dbo].[Equipos]
 
 SELECT * FROM [dbo].[Partidos]
 
-SELECT * FROM [dbo].[Jornadas]
+SELECT * FROM [dbo].[Jornadas] ORDER BY Fecha desc
 
 SELECT * FROM [dbo].[TiposPuntuacion]
 
