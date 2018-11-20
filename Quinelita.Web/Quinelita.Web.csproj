@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Quinelita.Data\Quinelita.Data.csproj" />
+    <ProjectReference Include="..\Quinelita.Models\Quinelita.Models.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

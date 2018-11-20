@@ -9,9 +9,10 @@ import { Router } from '@angular/router'
 })
 
 export class JornadaComponent {
+
   jornadas: any[];
-    private url = 'https://localhost:44322/api/jornadas';
-    private baseUrl: string;
+  private url = 'https://localhost:44322/api/jornadas';
+  private baseUrl: string;
 
   constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
 
@@ -24,7 +25,7 @@ export class JornadaComponent {
       }, error => console.error(error));
   }
 
-  createJornada(nombreJornada: HTMLInputElement) {   
+  createJornada(nombreJornada: HTMLInputElement) {
 
     let jornada = {
       nombre: nombreJornada.value,
@@ -44,7 +45,7 @@ export class JornadaComponent {
 
   jornadaSeleccionada(element) {
     console.log(this.jornadas[element]);
-    this.router.navigateByUrl('/detalle-jornada'); 
+    this.router.navigateByUrl('/detalle-jornada');
     //let jornada = {
     //  nombre: nombreJornada.value,
     //  fecha: new Date(),
