@@ -25,7 +25,10 @@ namespace Quinelita.Data
 
         [InverseProperty("Usuario")]
         public ICollection<QuinelaJornada> QuinelasJornada { get; set; }
+
         [InverseProperty("Usuario")]
         public ICollection<ResultadoQuinela> ResultadosQuinela { get; set; }
+
+        public ICollection<Rol> Roles { get; set; }
     }
 }

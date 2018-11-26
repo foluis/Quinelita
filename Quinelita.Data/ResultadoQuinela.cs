@@ -16,9 +16,11 @@ namespace Quinelita.Data
         [ForeignKey("PartidoId")]
         [InverseProperty("ResultadosQuinela")]
         public Partido Partido { get; set; }
+
         [ForeignKey("TipoPuntuacionId")]
         [InverseProperty("ResultadosQuinela")]
         public TipoPuntuacion TipoPuntuacion { get; set; }
+
         [ForeignKey("UsuarioId")]
         [InverseProperty("ResultadosQuinela")]
         public Usuario Usuario { get; set; }
