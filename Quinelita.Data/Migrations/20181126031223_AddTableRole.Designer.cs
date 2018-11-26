@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Quinelita.Data;
 
 namespace Quinelita.Data.Migrations
 {
     [DbContext(typeof(QuinelitaContext))]
-    partial class QuinelitaContextModelSnapshot : ModelSnapshot
+    [Migration("20181126031223_AddTableRole")]
+    partial class AddTableRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -198,22 +200,15 @@ namespace Quinelita.Data.Migrations
                     b.Property<string>("Nombre")
                         .IsRequired();
 
+                    b.Property<long>("UsuarioId");
+
+                    b.Property<int?>("UsuarioId1");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
-                });
+                    b.HasIndex("UsuarioId1");
 
-            modelBuilder.Entity("Quinelita.Data.RoleUsuario", b =>
-                {
-                    b.Property<int>("RolId");
-
-                    b.Property<int>("UsuarioId");
-
-                    b.HasKey("RolId", "UsuarioId");
-
-                    b.HasIndex("UsuarioId");
-
-                    b.ToTable("RolesUsuario");
+                    b.ToTable("Rol");
                 });
 
             modelBuilder.Entity("Quinelita.Data.TipoPuntuacion", b =>
@@ -325,17 +320,11 @@ namespace Quinelita.Data.Migrations
                         .HasConstraintName("FK_ResultadosQuinela_Usuarios");
                 });
 
-            modelBuilder.Entity("Quinelita.Data.RoleUsuario", b =>
+            modelBuilder.Entity("Quinelita.Data.Rol", b =>
                 {
-                    b.HasOne("Quinelita.Data.Rol", "Rol")
-                        .WithMany()
-                        .HasForeignKey("RolId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Quinelita.Data.Usuario", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("Quinelita.Data.Usuario")
+                        .WithMany("Roles")
+                        .HasForeignKey("UsuarioId1");
                 });
 #pragma warning restore 612, 618
         }

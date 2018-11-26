@@ -2,11 +2,9 @@
 
 namespace Quinelita.Data
 {
-    public class Rol
+    public partial class Rol
     {
         public int Id { get; set; }
-
-        public long UsuarioId { get; set; }
 
         [Required]
         public string Nombre { get; set; }

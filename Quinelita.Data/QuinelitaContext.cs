@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Quinelita.Data
 {
@@ -24,6 +22,8 @@ namespace Quinelita.Data
         public virtual DbSet<ResultadoQuinela> ResultadosQuinela { get; set; }
         public virtual DbSet<TipoPuntuacion> TiposPuntuacion { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
+        public virtual DbSet<Rol> Roles { get; set; }
+        public virtual DbSet<RoleUsuario> RolesUsuario { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -159,6 +159,9 @@ namespace Quinelita.Data
             {
                 entity.Property(e => e.Email).IsUnicode(false);
             });
+
+            modelBuilder.Entity<RoleUsuario>()
+                .HasKey(x => new { x.RolId, x.UsuarioId });
         }
     }
 }

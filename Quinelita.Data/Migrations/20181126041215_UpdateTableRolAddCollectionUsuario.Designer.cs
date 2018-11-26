@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Quinelita.Data;
 
 namespace Quinelita.Data.Migrations
 {
     [DbContext(typeof(QuinelitaContext))]
-    partial class QuinelitaContextModelSnapshot : ModelSnapshot
+    [Migration("20181126041215_UpdateTableRolAddCollectionUsuario")]
+    partial class UpdateTableRolAddCollectionUsuario
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -198,7 +200,11 @@ namespace Quinelita.Data.Migrations
                     b.Property<string>("Nombre")
                         .IsRequired();
 
+                    b.Property<int?>("UsuarioId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Roles");
                 });
@@ -245,7 +251,11 @@ namespace Quinelita.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
+                    b.Property<int?>("RolId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("RolId");
 
                     b.ToTable("Usuarios");
                 });
@@ -325,6 +335,13 @@ namespace Quinelita.Data.Migrations
                         .HasConstraintName("FK_ResultadosQuinela_Usuarios");
                 });
 
+            modelBuilder.Entity("Quinelita.Data.Rol", b =>
+                {
+                    b.HasOne("Quinelita.Data.Usuario")
+                        .WithMany("Roles")
+                        .HasForeignKey("UsuarioId");
+                });
+
             modelBuilder.Entity("Quinelita.Data.RoleUsuario", b =>
                 {
                     b.HasOne("Quinelita.Data.Rol", "Rol")
@@ -336,6 +353,13 @@ namespace Quinelita.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Quinelita.Data.Usuario", b =>
+                {
+                    b.HasOne("Quinelita.Data.Rol")
+                        .WithMany("Usuarios")
+                        .HasForeignKey("RolId");
                 });
 #pragma warning restore 612, 618
         }

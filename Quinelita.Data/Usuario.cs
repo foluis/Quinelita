@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -28,7 +27,5 @@ namespace Quinelita.Data
 
         [InverseProperty("Usuario")]
         public ICollection<ResultadoQuinela> ResultadosQuinela { get; set; }
-
-        public ICollection<Rol> Roles { get; set; }
     }
 }
